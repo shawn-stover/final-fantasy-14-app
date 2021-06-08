@@ -1,2 +1,2 @@
-# final-fantasy-14-app
-App for Notes for users
+Users are able to search for their character and create notes fo individual classes or generalized notes/goals. 
+Searching your character through the lodestone allows you to create customized notes directly from your characters data. 
