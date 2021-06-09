@@ -1,0 +1,27 @@
+{
+  "name": "final-fantasy-14-app",
+  "version": "1.0.0",
+  "description": "Users are able to search for their character and create notes fo individual classes or generalized notes/goals.  Searching your character through the lodestone allows you to create customized notes directly from your characters data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawn-stover/final-fantasy-14-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shawn-stover/final-fantasy-14-app/issues"
+  },
+  "homepage": "https://github.com/shawn-stover/final-fantasy-14-app#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "sequelize": "^6.6.2"
+  }
+}
