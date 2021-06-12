@@ -28,7 +28,6 @@ app.post(`/results`, (req, res) => {
         let charId = APIres.data.Results[0].ID
         axios.get(`https://xivapi.com/character/${charId}`)
         .then(response => {
-            console.log(response.data.Character.ClassJobs)
             res.render('results', { data: response.data.Character.ClassJobs })
         })    
     }).catch(err => {

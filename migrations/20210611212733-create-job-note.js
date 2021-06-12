@@ -1,14 +1,17 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('charIDs', {
+    await queryInterface.createTable('job_notes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      charID: {
+      Content: {
+        type: Sequelize.TEXT
+      },
+      JobID: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -22,6 +25,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('charIDs');
+    await queryInterface.dropTable('job_notes');
   }
 };
