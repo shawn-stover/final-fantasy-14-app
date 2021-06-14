@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.character.hasMany(models.jobs)
+      models.character.hasMany(models.notes)
     }
   };
   character.init({
