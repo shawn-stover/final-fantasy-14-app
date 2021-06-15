@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.jobs.belongsTo(models.character)
-      models.jobs.belomgsToMany(models.notes, { through: 'jobs_notes'})
+      models.jobs.belongsToMany(models.notes, { through: 'jobs_notes'})
     }
   };
   jobs.init({

@@ -1,3 +1,9 @@
-<% data.forEach(obj => { %>
-    <%= JSON.stringify(obj) %>
-<% }) %>
+<h1> Select Your Class </h1>
+
+<div class="dropdown">
+    <select>
+        <% data.forEach(ClassJob => { %>
+            <option class="selection"><%= ClassJob.UnlockedState.Name %></option>
+        <% }) %>  
+    </select>
+</div>
