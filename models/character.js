@@ -11,12 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.character.hasMany(models.jobs)
-      models.character.hasMany(models.notes)
+      models.character.hasMany(models.job)
     }
   };
   character.init({
-    charID: DataTypes.INTEGER
+    player: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'character',

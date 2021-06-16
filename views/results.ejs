@@ -1,9 +1,14 @@
 <h1> Select Your Class </h1>
 
-<div class="dropdown">
-    <select>
+<form action="/jobData" method="GET" class="dropdown">
+    <select name="classSelect">
         <% data.forEach(ClassJob => { %>
             <option class="selection"><%= ClassJob.UnlockedState.Name %></option>
         <% }) %>  
     </select>
-</div>
+    <input type="submit">
+</form>
+
+<!-- Seperate form with button for general notes -->
+
+<img src='<%= img %>'>   
