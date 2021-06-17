@@ -2,7 +2,7 @@ const db = require("./models");
 
 db.note.create({
     jobId: 2,
-    content: 'test test test'
+    content: 'testing'
 })
 
 // db.job.create({

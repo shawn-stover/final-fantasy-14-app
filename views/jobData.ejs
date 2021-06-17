@@ -1,5 +1,18 @@
-<h1> Notes </h1>
+<h1> Notes for <%- classData %></h1>
 
-<form action="/jobDAta" method="POST">
+<form action="/jobData" method="GET">
+    <div class="jobContainer">
+        <ul class="noteList">
+            <% data.forEach(response[index] => { %>
+                <li class="selection"><%= response.content %></option>
+            <% }) %>
+        </ul>     
+    </div>
+</form>
 
+<form action="/addNote" method="POST">
+    <input type="text" class="writeNote" name="noteField">
+    <input type="text" class="class" value="classData">
+    <input type="integer" class="char" value="charId">
+    <input type="submit" value="Add Note">
 </form>

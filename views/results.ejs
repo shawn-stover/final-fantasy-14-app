@@ -6,9 +6,11 @@
             <option class="selection"><%= ClassJob.UnlockedState.Name %></option>
         <% }) %>  
     </select>
-    <input type="submit">
+    <input type="submit" value="Select">
+    <input type="text" name="char" value='<%= charId %>' class="hideId">
 </form>
 
-<!-- Seperate form with button for general notes -->
-
+<form action="/jobData" method="GET" >
+    <input type="submit" value="General Notes"></button>
+</form>
 <img src='<%= img %>'>   

@@ -6,7 +6,7 @@ const fs = require('fs')
 const db = require('./models')
 const methodOverride = require('method-override')
 
-// Create Ap
+// Create App
 const app = express()
 const PORT = (process.env.PORT) || 3000
 
@@ -30,15 +30,15 @@ app.post(`/results`, (req, res) => {
 
     axios.get(`https://xivapi.com/character/search?name=${charName}&server=${serverName}`)
     .then(APIres => {
-        let charId = APIres.data.Results[0].ID
+        const charId = APIres.data.Results[0].ID
         db.character.findOrCreate({
-            where: { player: charId }})
+            where: { player: charId }})  
         axios.get(`https://xivapi.com/character/${charId}`)
         .then(response => {
             // TODO 
             // Get title rendering properly from API 
             // let resultsTitle = {title: `${charName} on ${serverName}`}
-            res.render('results', { data: response.data.Character.ClassJobs, img: response.data.Character.Portrait, title: `${charName} on ${serverName}`})
+            res.render('results', { data: response.data.Character.ClassJobs, charId: APIres.data.Results[0].ID, img: response.data.Character.Portrait, title: `${charName} on ${serverName}`})
         }).catch(err => {
             console.log(err)
         })       
@@ -48,15 +48,46 @@ app.post(`/results`, (req, res) => {
 }) 
 
 // GET for jobData
-app.get('/jobData', async (req, res) => {
+app.get('/jobData', (req, res) => {
     let classData = req.query.classSelect
-    const specJob = await db.job.findOne({
-        where: {jobName: classData }
-    })
-    const allNotes = await db.note.findAll({
-        where: {jobId: specJob.id}
-    })
-    res.send(allNotes)
+    db.job.findOrCreate({
+        where: { 
+            characterId: req.query.char,    
+            jobName: classData 
+        }}).then(job => {
+            db.note.findAll({
+                where: {
+                    jobId: job[0].dataValues.id
+                }
+            }).then(response => {
+                console.log(response[1])
+                res.render('jobData', { data: response, classData: req.query.classSelect})
+            }).catch(err => {
+                console.log(err)
+            })
+        }).catch(err => {
+            console.log(err)
+        })      
+})
+
+// GET for genData
+app.get('/genData', (req, res) => {
+    db.job.findOrCreate({
+        where: { 
+            characterId: req.query.char,
+        }}).then(job => {
+            db.note.findAll({
+                where: {
+                    jobId: job[0].dataValues.id
+                }
+            }).then(response => {
+                res.render('jobData', { data: response[0].dataValues.content, classData: req.query.classSelect})
+            }).catch(err => {
+                console.log(err)
+            })
+        }).catch(err => {
+            console.log(err)
+        })      
 })
 
 // App.listen
