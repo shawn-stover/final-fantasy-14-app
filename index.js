@@ -60,8 +60,8 @@ app.get('/jobData', (req, res) => {
                     jobId: job[0].dataValues.id
                 }
             }).then(response => {
-                console.log(response[1])
-                res.render('jobData', { data: response, classData: req.query.classSelect})
+                // console.log(response[1])
+                res.render('jobData', { data: response, classData: req.query.classSelect, characterId: req.query.char})
             }).catch(err => {
                 console.log(err)
             })
@@ -71,23 +71,35 @@ app.get('/jobData', (req, res) => {
 })
 
 // GET for genData
-app.get('/genData', (req, res) => {
-    db.job.findOrCreate({
-        where: { 
-            characterId: req.query.char,
-        }}).then(job => {
-            db.note.findAll({
-                where: {
-                    jobId: job[0].dataValues.id
-                }
-            }).then(response => {
-                res.render('jobData', { data: response[0].dataValues.content, classData: req.query.classSelect})
-            }).catch(err => {
-                console.log(err)
-            })
-        }).catch(err => {
-            console.log(err)
-        })      
+// app.get('/genData', (req, res) => {
+//     db.job.findOrCreate({
+//         where: { 
+//             characterId: req.query.char,
+//         }}).then(job => {
+//             db.note.findAll({
+//                 where: {
+//                     jobId: job[0].dataValues.id
+//                 }
+//             }).then(response => {
+//                 res.render('jobData', { data: response[0].dataValues.content, classData: req.query.classSelect})
+//             }).catch(err => {
+//                 console.log(err)
+//             })
+//         }).catch(err => {
+//             console.log(err)
+//         })      
+// })
+
+app.delete('/jobData', (req, res) => {
+    console.log(req.body)
+    console.log(req.params)
+    console.log(req.query)
+    res.send('ROUTE HIT')
+    // console.log(req.query.id)
+    // db.note.destroy({
+    //     where: {noteId: req.query.id}
+    // })
+    // res.redirect('/jobData')
 })
 
 // App.listen

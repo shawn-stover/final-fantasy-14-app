@@ -3,8 +3,11 @@
 <form action="/jobData" method="GET">
     <div class="jobContainer">
         <ul class="noteList">
-            <% data.forEach(response[index] => { %>
-                <li class="selection"><%= response.content %></option>
+            <% data.forEach(response => { %>
+                <li class="selection"><%= response.content %>
+                <form action="/jobData?_method=DELETE" method="POST">
+                    <input type="submit" value="Delete Note">
+                </form> </li>
             <% }) %>
         </ul>     
     </div>
