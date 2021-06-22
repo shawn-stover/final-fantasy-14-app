@@ -1,6 +1,6 @@
 <h1> Notes for <%- classData %></h1>
 
-<form action="/jobData" method="GET">
+<!-- <form action="/jobData" method="GET"> -->
     <div class="jobContainer">
         <ul class="noteList">
             <% data.forEach(response => { %>
@@ -11,7 +11,7 @@
             <% }) %>
         </ul>     
     </div>
-</form>
+<!-- </form> -->
 
 <form action="/addNote" method="POST">
     <input type="text" class="writeNote" name="noteField">

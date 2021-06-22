@@ -95,11 +95,16 @@ app.delete('/jobData', (req, res) => {
     console.log(req.params)
     console.log(req.query)
     res.send('ROUTE HIT')
-    // console.log(req.query.id)
-    // db.note.destroy({
-    //     where: {noteId: req.query.id}
-    // })
-    // res.redirect('/jobData')
+    console.log(req.query.id)
+    db.note.destroy({
+        where: {noteId: req.query.id}
+    })
+    res.redirect('/jobData')
+})
+
+app.post('/addNote', (req, res) => {
+    console.log(req.body)
+    res.send('ADD NOTE HIT')
 })
 
 // App.listen
