@@ -10,8 +10,8 @@ h1 {
     margin-top: -80px;
 }
 
-.hideId, .class, .char, .char2 {
-    display: none;
+.hideId, .class, .char, .char2, .jobID {
+    /* visibility: hidden; */
 }
 
 /* input .writeNote {

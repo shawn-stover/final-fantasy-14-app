@@ -4,7 +4,7 @@
     <div class="jobContainer">
         <ul class="noteList">
             <% data.forEach(response => { %>
-                <li class="selection"><%= response.content %>
+                <li class="selection"><%= response.dataValues.content %>
                 <form action="/jobData?_method=DELETE" method="POST">
                     <input type="submit" value="Delete Note">
                 </form> </li>
@@ -15,7 +15,8 @@
 
 <form action="/addNote" method="POST">
     <input type="text" class="writeNote" name="noteField">
-    <input type="text" class="class" value="classData">
-    <input type="integer" class="char" value="charId">
+    <input type="text" class="class" value=<%= classData %>>
+    <input type="integer" class="char" value=<%= data[0].dataValues.characterId %> name='characterId'>
+    <input type="integer" class="jobID" value=<%= data[0].dataValues.jobId %> name='jobId'>
     <input type="submit" value="Add Note">
 </form>

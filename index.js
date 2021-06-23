@@ -60,8 +60,7 @@ app.get('/jobData', (req, res) => {
                     jobId: job[0].dataValues.id
                 }
             }).then(response => {
-                // console.log(response[1])
-                res.render('jobData', { data: response, classData: req.query.classSelect, characterId: req.query.char})
+                res.render('jobData', { data: response, classData: classData})
             }).catch(err => {
                 console.log(err)
             })
@@ -103,7 +102,16 @@ app.delete('/jobData', (req, res) => {
 })
 
 app.post('/addNote', (req, res) => {
-    console.log(req.body)
+    console.log(req.body.characterId, req.body.jobId, req.body.noteField)
+    let content = (req.body.noteField).toString()
+    db.note.create({
+        where: {
+            characterId: req.body.characterId,
+            jobId: req.body.jobId,
+            content: content
+        }
+    })
+    //res.redirect to /jobData with new note added
     res.send('ADD NOTE HIT')
 })
 
