@@ -11,7 +11,7 @@ h1 {
 }
 
 .hideId, .class, .char, .char2, .jobID {
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 
 /* input .writeNote {
