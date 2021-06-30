@@ -52,7 +52,7 @@ app.get('/jobData', (req, res) => {
     let classData = req.query.classSelect
     db.job.findOrCreate({
         where: { 
-            characterId: req.query.char,    
+            characterId: req.query.char,
             jobName: classData 
         }}).then(job => {
             db.note.findAll({
@@ -69,7 +69,7 @@ app.get('/jobData', (req, res) => {
         })      
 })
 
-// GET for genData
+// GET for genData (TODO After Cohort)
 // app.get('/genData', (req, res) => {
 //     db.job.findOrCreate({
 //         where: { 
@@ -90,29 +90,43 @@ app.get('/jobData', (req, res) => {
 // })
 
 app.delete('/jobData', (req, res) => {
-    console.log(req.body)
-    console.log(req.params)
-    console.log(req.query)
-    res.send('ROUTE HIT')
-    console.log(req.query.id)
+    let charId = req.body.characterId 
+    let className = req.body.className
     db.note.destroy({
-        where: {noteId: req.query.id}
+        where: {id: req.body.noteId}
     })
-    res.redirect('/jobData')
+    res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
 })
 
 app.post('/addNote', (req, res) => {
-    console.log(req.body.characterId, req.body.jobId, req.body.noteField)
+    let charId = req.body.characterId 
+    let jobId = req.body.jobId
+    let className = req.body.className
     let content = (req.body.noteField).toString()
     db.note.create({
-        where: {
-            characterId: req.body.characterId,
-            jobId: req.body.jobId,
-            content: content
-        }
+        characterId: charId,
+        jobId: jobId,
+        content: content
     })
     //res.redirect to /jobData with new note added
-    res.send('ADD NOTE HIT')
+    res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
+})
+
+app.get('/jobData/edit/:id', (req, res) => {
+    console.log(req.query.noteId)
+    let noteId = req.query.noteId
+    let charId = req.body.characterId
+    let className = req.body.className
+    db.note.findByPk(noteId)
+    .then(response => {
+        res.render('edit', { characterId: charId, class: className, noteId: noteId })
+    })
+})
+
+app.put('/jobData/edit/:id', (req, res) => {
+    req.note.content = req.body.updateNote
+    req.note.save()
+    res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
 })
 
 // App.listen
