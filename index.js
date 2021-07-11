@@ -50,6 +50,8 @@ app.post(`/results`, (req, res) => {
 // GET for jobData
 app.get('/jobData', (req, res) => {
     let classData = req.query.classSelect
+    let jobId = req.body.jobId
+    let charId = req.body.charId
     db.job.findOrCreate({
         where: { 
             characterId: req.query.char,
@@ -60,7 +62,7 @@ app.get('/jobData', (req, res) => {
                     jobId: job[0].dataValues.id
                 }
             }).then(response => {
-                res.render('jobData', { data: response, classData: classData})
+                res.render('jobData', { data: response, classData: classData, jobId: jobId, characterId: charId})
             }).catch(err => {
                 console.log(err)
             })
@@ -90,7 +92,7 @@ app.get('/jobData', (req, res) => {
 // })
 
 app.delete('/jobData', (req, res) => {
-    let charId = req.body.characterId 
+    let charId = req.body.characterId
     let className = req.body.className
     db.note.destroy({
         where: {id: req.body.noteId}
@@ -112,20 +114,31 @@ app.post('/addNote', (req, res) => {
     res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
 })
 
-app.get('/jobData/edit/:id', (req, res) => {
-    console.log(req.query.noteId)
+app.get('/jobData/edit/', (req, res) => {
     let noteId = req.query.noteId
     let charId = req.body.characterId
+    let jobId = req.body.jobId
     let className = req.body.className
-    db.note.findByPk(noteId)
-    .then(response => {
-        res.render('edit', { characterId: charId, class: className, noteId: noteId })
+    db.note.findOne({
+        where:
+            {id: noteId}
+    })
+    .then(note => {
+        console.log(note)
+        res.render('edit', {note: note})
     })
 })
 
 app.put('/jobData/edit/:id', (req, res) => {
-    req.note.content = req.body.updateNote
-    req.note.save()
+    let noteId = req.query.noteId
+    let charId = req.body.characterId
+    let className = req.body.className
+    db.note.update({ 
+        content: req.body.updateNote
+    }, {
+        where: {id: noteId}
+    })
+    // Redirect to notes page with updated note
     res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
 })
 
