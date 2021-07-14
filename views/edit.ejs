@@ -1,0 +1,7 @@
+<h1>Update Note</h1>
+
+<form action="/jobData/edit/" method="PUT">
+    <input type='text' class="noteUpdate" name="updateNote" placeholder='Current Note: <%= note.content %>''>
+    <input type="integer" class="noteID" value=<%= note.id %> name='noteId'>
+    <input type="submit" value="Update Note">
+</form>
