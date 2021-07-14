@@ -6,6 +6,7 @@ const fs = require('fs')
 const db = require('./models')
 const methodOverride = require('method-override')
 
+
 // Create App
 const app = express()
 const PORT = (process.env.PORT) || 3000
@@ -140,6 +141,10 @@ app.put('/jobData/edit/:id', (req, res) => {
     })
     // Redirect to notes page with updated note
     res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
+
+// GET to render front page for user to enter character name and server for API Call
+app.get('/', (req, res) => {
+    res.render('index')
 })
 
 // App.listen
