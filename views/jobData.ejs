@@ -11,8 +11,10 @@
                 <input type="integer" class="jobID" value=<%= data[0].dataValues.jobId %> name='jobId'>
                 <input type="integer" class="noteID" value=<%= response.dataValues.id %> name='noteId'>
             </form>
-            <form action='/jobData/edit/' method='GET'>
-                <input type="submit" value="update Note">
+            <form action="/jobData?_method=PUT" method="POST">
+                <input type="text" class="class" name='className' value=<%= classData %>>
+                <input type="text" class="writeNote2" name="updateNote" placeholder='Type a note here'>
+                <input type="submit" value="Update Note">
                 <input type="integer" class="char" value=<%= data[0].dataValues.characterId %> name='characterId'>
                 <input type="integer" class="jobID" value=<%= data[0].dataValues.jobId %> name='jobId'>
                 <input type="integer" class="noteID" value=<%= response.dataValues.id %> name='noteId'>
@@ -23,7 +25,7 @@
 </div>
 
 <form action="/addNote" method="POST">
-    <input type="text" class="writeNote" name="noteField">
+    <input type="text" class="writeNote" name="noteField" placeholder='Type a note here'>
     <input type="submit" value="Add Note">
     <input type="text" class="class" name='className' value=<%= classData %>>
     <input type="integer" class="char" value=<%= data[0].dataValues.characterId %> name='characterId'>

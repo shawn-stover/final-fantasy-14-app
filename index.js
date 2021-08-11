@@ -5,6 +5,7 @@ const axios = require('axios')
 const fs = require('fs')
 const db = require('./models')
 const methodOverride = require('method-override')
+const rowdy = require('rowdy-logger')
 
 // Create App
 const app = express()
@@ -71,25 +72,16 @@ app.get('/jobData', (req, res) => {
         })      
 })
 
-// GET for genData (TODO After Cohort)
-// app.get('/genData', (req, res) => {
-//     db.job.findOrCreate({
-//         where: { 
-//             characterId: req.query.char,
-//         }}).then(job => {
-//             db.note.findAll({
-//                 where: {
-//                     jobId: job[0].dataValues.id
-//                 }
-//             }).then(response => {
-//                 res.render('jobData', { data: response[0].dataValues.content, classData: req.query.classSelect})
-//             }).catch(err => {
-//                 console.log(err)
-//             })
-//         }).catch(err => {
-//             console.log(err)
-//         })      
-// })
+app.put('/jobData', (req, res) => {
+    let charId = req.body.characterId
+    let className = req.body.className
+    db.note.update({
+        content: req.body.updateNote
+    }, {    
+        where: {id: req.body.noteId}
+    })
+    res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
+})
 
 app.delete('/jobData', (req, res) => {
     let charId = req.body.characterId
@@ -110,35 +102,8 @@ app.post('/addNote', (req, res) => {
         jobId: jobId,
         content: content
     })
+
     //res.redirect to /jobData with new note added
-    res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
-})
-
-app.get('/jobData/edit/', (req, res) => {
-    let noteId = req.query.noteId
-    let charId = req.body.characterId
-    let jobId = req.body.jobId
-    let className = req.body.className
-    db.note.findOne({
-        where:
-            {id: noteId}
-    })
-    .then(note => {
-        console.log(note)
-        res.render('edit', {note: note})
-    })
-})
-
-app.put('/jobData/edit/:id', (req, res) => {
-    let noteId = req.query.noteId
-    let charId = req.body.characterId
-    let className = req.body.className
-    db.note.update({ 
-        content: req.body.updateNote
-    }, {
-        where: {id: noteId}
-    })
-    // Redirect to notes page with updated note
     res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
 })
 
