@@ -7,6 +7,7 @@ const db = require('./models')
 const methodOverride = require('method-override')
 const rowdy = require('rowdy-logger')
 
+
 // Create App
 const app = express()
 const PORT = (process.env.PORT) || 3000
@@ -105,6 +106,10 @@ app.post('/addNote', (req, res) => {
 
     //res.redirect to /jobData with new note added
     res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
+
+// GET to render front page for user to enter character name and server for API Call
+app.get('/', (req, res) => {
+    res.render('index')
 })
 
 // App.listen
