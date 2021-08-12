@@ -2,7 +2,7 @@
   "name": "final-fantasy-14-app",
   "version": "1.0.0",
   "description": "Users are able to search for their character and create notes fo individual classes or generalized notes/goals.  Searching your character through the lodestone allows you to create customized notes directly from your characters data.",
-  "main": "index.js",
+  "main": "node index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
