@@ -106,6 +106,7 @@ app.post('/addNote', (req, res) => {
 
     //res.redirect to /jobData with new note added
     res.redirect(`/jobData?classSelect=${className}&char=${charId}`)
+})
 
 // GET to render front page for user to enter character name and server for API Call
 app.get('/', (req, res) => {
